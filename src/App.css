@@ -1,0 +1,156 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  /* display: flex; */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ea0000;
+  cursor: pointer;
+  transition: border-color 0.5s;
+  background: rgba(55, 176, 93, 1);
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+    /* background: linear-gradient(90deg, rgba(55,176,93,1) 50%, rgba(2,157,255,1) 100%);
+    background-size: 400% 400%;
+    animation: movingGradient 20s linear infinite alternate; */
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.logo {
+  height: 16em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+  cursor: pointer;
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.spotify-battle {
+  border-radius: 20%;
+}
+
+.test-css {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.navbar a {
+  color: #070101;
+  /* text-align: center; */
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  cursor: pointer;
+}
+
+@keyframes movingGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.button-50 {
+  background-color: rgba(55, 176, 93, 1);
+  transition: 0.7s;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.button-50:hover {
+  background-color: rgba(2, 157, 255, 1);
+}
+
+.test-input {
+  display: flex;
+  flex-direction: row;
+  margin: 3rem auto;
+  width: 25%;
+  height: 40px;
+  transition: width 1s;
+}
+
+.test-input:focus {
+  width: 40%;
+}
