@@ -1,9 +1,10 @@
-import { data } from "../data/data"
+import { aboutData } from "../data/data"
 
-function Modal() {
+// eslint-disable-next-line react/prop-types
+function AboutModal() {
     return (
         <>
-            <a type="button" className="navbar" data-toggle="modal" data-target="#exampleModal">
+            <a type="button" className="about-modal-button" data-toggle="modal" data-target="#exampleModal">
                 About
             </a>
 
@@ -17,19 +18,19 @@ function Modal() {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {data.description}
+                            {aboutData.description}
                             <br />
                             <br />
-                            {data.instructions}
+                            {aboutData.instructions}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
 
-export default Modal
+export default AboutModal

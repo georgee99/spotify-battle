@@ -95,10 +95,15 @@ button:focus-visible {
   border-radius: 20%;
 }
 
-.test-css {
+.link-input-area {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.link-input-container {
+  width: 100%;
+  flex-direction: row;
 }
 
 .navbar {
@@ -133,24 +138,48 @@ button:focus-visible {
 
 .button-50 {
   background-color: rgba(55, 176, 93, 1);
-  transition: 0.7s;
+  transition: 0.5s;
   border-radius: 8px;
   border: 1px solid transparent;
+  font-size: 1rem;
 }
 
 .button-50:hover {
   background-color: rgba(2, 157, 255, 1);
+  font-size: 1.1rem;
 }
 
-.test-input {
-  display: flex;
-  flex-direction: row;
-  margin: 3rem auto;
-  width: 25%;
+.spotify-input-link {
+  margin: 1rem 10px;
+  width: 50%;
   height: 40px;
   transition: width 1s;
 }
 
-.test-input:focus {
-  width: 40%;
+.spotify-input-link:focus {
+  width: 70%;
+}
+
+.usermame-info-modal-button {
+  font-size: 1.25rem;
+  transition: all 0.5s;
+}
+.usermame-info-modal-button:hover {
+  font-size: 1.3rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.username-modal-body > label {
+  margin: 0 1rem;
+}
+
+.username-label {
+  font-size: 1.2rem;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
+.winner-header {
+  margin: 2rem 0;
 }

@@ -1,4 +1,4 @@
-export const data = {
+export const aboutData = {
   description:
     "Spotify Battle will help you and your friends decide who has the better playlist, taste in music, and who is a better human being in general. ",
   instructions:
