@@ -18,7 +18,7 @@ function UserModal({ setUser1Name, setUser2Name }) {
     }
     return (
         <>
-            <a type="button" className="usermame-info-modal-button" data-toggle="modal" data-target="#userNameModal">
+            <a type="button" className="username-info-modal-button" data-toggle="modal" data-target="#userNameModal">
                 Set usernames
             </a>
 
@@ -33,10 +33,11 @@ function UserModal({ setUser1Name, setUser2Name }) {
                         </div>
                         <div className="modal-body username-modal-body">
                             <label>Player 1:</label>
-                            <input type="text" placeholder="Player 1 username" className='' onChange={handleUsername1Change}></input>
+                            <input type="text" className='' onChange={handleUsername1Change}></input>
+                            <br />
                             <br />
                             <label>Player 2:</label>
-                            <input type="text" placeholder="Player 2 username" className='' onChange={handleUsername2Change}></input>
+                            <input type="text" className='' onChange={handleUsername2Change}></input>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={handleSaveChanges}>Save changes</button>

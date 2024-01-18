@@ -1,22 +1,28 @@
-export const retrieveSpotifyPlaylistIDFromURL = async (url) => {
-  url = removeQueryString(url);
-  console.log(url);
-  const regex = /^https:\/\/open\.spotify\.com\/playlist\/([a-zA-Z0-9]+)$/;
+export const getPlaylistDetailsFromAPI = async (spotifyLink1) => {
+  const API_ENDPOINT = "https://api.spotify.com/v1/playlists/";
 
-  const match = url.match(regex);
-
-  if (match) {
-    const playlistId = match[1];
-    console.log(playlistId);
-    return playlistId;
-  } else {
-    console.log("INVALID ID");
-    return null;
+  try {
+    const headers = {
+      Authorization: await getBearerToken(
+        // eslint-disable-next-line no-undef
+        process.env.CLIENT_ID,
+        // eslint-disable-next-line no-undef
+        process.env.CLIENT_SECRET
+      ),
+    };
+    const response = await fetch(
+      API_ENDPOINT + (await retrieveSpotifyPlaylistIDFromURL(spotifyLink1)),
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
+    const spotifyPlaylist = await response.json();
+    console.log(spotifyPlaylist);
+    return spotifyPlaylist;
+  } catch (err) {
+    console.error("Error: " + err);
   }
-};
-
-const removeQueryString = (url) => {
-  return url.indexOf("?") !== -1 ? url.split("?")[0] : url;
 };
 
 export const getBearerToken = async (clientID, clientSecret) => {
@@ -44,8 +50,28 @@ export const getBearerToken = async (clientID, clientSecret) => {
   }
 };
 
+const retrieveSpotifyPlaylistIDFromURL = async (url) => {
+  url = removeQueryString(url);
+  console.log(url);
+  const regex = /^https:\/\/open\.spotify\.com\/playlist\/([a-zA-Z0-9]+)$/;
+
+  const match = url.match(regex);
+
+  if (match) {
+    const playlistId = match[1];
+    return playlistId;
+  } else {
+    console.log("INVALID ID");
+    return null;
+  }
+};
+
+const removeQueryString = (url) => {
+  return url.indexOf("?") !== -1 ? url.split("?")[0] : url;
+};
+
 export const getNumberOfTracks = async (playlist) => {
-  return playlist.tracks != null ? playlist.tracks.items.length : 0;
+  return playlist.tracks != null ? playlist.tracks.total : 0;
 };
 
 export const getPlaylistImage = async (playlist) => {
@@ -66,7 +92,6 @@ export const getPlaylistName = async (playlist) => {
 
 export const determineImagePixelCount = async (imageURL) => {
   try {
-    console.log("Getting image");
     const response = await fetch(imageURL);
     const data = await response.blob();
     const imageBitmap = await createImageBitmap(data);
@@ -74,18 +99,20 @@ export const determineImagePixelCount = async (imageURL) => {
     const height = imageBitmap.height;
     const pixelCount = width * height;
 
-    console.log(`Total pixel count: ${pixelCount}`);
     return pixelCount;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const findWinningUserForCategory = async (user1Length, user2Length) => {
-  // use this later
-  return user1Length > user2Length
-    ? "user1"
-    : user1Length < user2Length
-    ? "user2"
-    : ""; //Nothing if they're equal;
+export const isInputValid = async (inputText) => {
+  if (!inputText) {
+    return false;
+  }
+
+  if (!inputText.includes("spotify")) {
+    return false;
+  }
+
+  return true;
 };

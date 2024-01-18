@@ -1,6 +1,5 @@
 import { aboutData } from "../data/data"
 
-// eslint-disable-next-line react/prop-types
 function AboutModal() {
     return (
         <>
