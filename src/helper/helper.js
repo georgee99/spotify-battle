@@ -3,12 +3,7 @@ export const getPlaylistDetailsFromAPI = async (spotifyLink) => {
 
   try {
     const headers = {
-      Authorization: await getBearerToken(
-        // eslint-disable-next-line no-undef
-        process.env.CLIENT_ID,
-        // eslint-disable-next-line no-undef
-        process.env.CLIENT_SECRET
-      ),
+      Authorization: await getBearerToken(),
     };
     const response = await fetch(
       API_ENDPOINT + (await retrieveSpotifyPlaylistIDFromURL(spotifyLink)),
@@ -25,10 +20,14 @@ export const getPlaylistDetailsFromAPI = async (spotifyLink) => {
   }
 };
 
-export const getBearerToken = async (clientID, clientSecret) => {
+export const getBearerToken = async () => {
   const url = "https://accounts.spotify.com/api/token";
+
+  const clientId = import.meta.env.VITE_REACT_APP_CLIENT_ID;
+  const clientSecret = import.meta.env.VITE_REACT_APP_CLIENT_SECRET;
+
   try {
-    const authHeader = `Basic ${btoa(`${clientID}:${clientSecret}`)}`;
+    const authHeader = `Basic ${btoa(`${clientId}:${clientSecret}`)}`;
 
     const response = await fetch(url, {
       method: "POST",
