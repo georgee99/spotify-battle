@@ -1,4 +1,4 @@
-export const getPlaylistDetailsFromAPI = async (spotifyLink1) => {
+export const getPlaylistDetailsFromAPI = async (spotifyLink) => {
   const API_ENDPOINT = "https://api.spotify.com/v1/playlists/";
 
   try {
@@ -11,17 +11,17 @@ export const getPlaylistDetailsFromAPI = async (spotifyLink1) => {
       ),
     };
     const response = await fetch(
-      API_ENDPOINT + (await retrieveSpotifyPlaylistIDFromURL(spotifyLink1)),
+      API_ENDPOINT + (await retrieveSpotifyPlaylistIDFromURL(spotifyLink)),
       {
         method: "GET",
         headers: headers,
       }
     );
     const spotifyPlaylist = await response.json();
-    console.log(spotifyPlaylist);
     return spotifyPlaylist;
   } catch (err) {
     console.error("Error: " + err);
+    return null;
   }
 };
 
@@ -52,7 +52,6 @@ export const getBearerToken = async (clientID, clientSecret) => {
 
 const retrieveSpotifyPlaylistIDFromURL = async (url) => {
   url = removeQueryString(url);
-  console.log(url);
   const regex = /^https:\/\/open\.spotify\.com\/playlist\/([a-zA-Z0-9]+)$/;
 
   const match = url.match(regex);
@@ -61,7 +60,6 @@ const retrieveSpotifyPlaylistIDFromURL = async (url) => {
     const playlistId = match[1];
     return playlistId;
   } else {
-    console.log("INVALID ID");
     return null;
   }
 };
@@ -105,14 +103,6 @@ export const determineImagePixelCount = async (imageURL) => {
   }
 };
 
-export const isInputValid = async (inputText) => {
-  if (!inputText) {
-    return false;
-  }
-
-  if (!inputText.includes("spotify")) {
-    return false;
-  }
-
-  return true;
+export const didAPIReturnError = async (returnedSpotifyObj) => {
+  return Object.prototype.hasOwnProperty.call(returnedSpotifyObj, "error");
 };

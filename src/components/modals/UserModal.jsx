@@ -5,6 +5,13 @@ function UserModal({ setUser1Name, setUser2Name }) {
     const [input1, setLocalInput1] = useState('');
     const [input2, setLocalInput2] = useState('');
 
+    const areUsernamesNull = (name1, name2) => {
+        if (name1 == "" || name2 == "") {
+            return true;
+        }
+        return false
+    }
+
     const handleUsername1Change = (event) => {
         setLocalInput1(event.target.value)
     };
@@ -19,7 +26,11 @@ function UserModal({ setUser1Name, setUser2Name }) {
     return (
         <>
             <a type="button" className="username-info-modal-button" data-toggle="modal" data-target="#userNameModal">
-                Set usernames
+                {areUsernamesNull(input1, input2) ? (
+                    <p>Set usernames</p>
+                ) : (
+                    <p>Change usernames</p>
+                )}
             </a>
 
             <div className="modal fade" id="userNameModal" tabIndex="-1" role="dialog" aria-labelledby="userNameModalLabel" aria-hidden="true">

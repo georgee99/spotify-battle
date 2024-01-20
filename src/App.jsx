@@ -2,9 +2,10 @@ import { useState } from 'react'
 import spotifyBattleLogo from './assets/spotify-battle-logo.jpeg'
 import './App.css'
 import Navbar from './components/Navbar'
-import { determineImagePixelCount, getNumberOfTracks, getPlaylistDescription, getPlaylistDetailsFromAPI, getPlaylistFollowerCount, getPlaylistImage, getPlaylistName } from './helper/helper'
-import UserModal from './components/UserModal'
+import { determineImagePixelCount, didAPIReturnError, getNumberOfTracks, getPlaylistDescription, getPlaylistDetailsFromAPI, getPlaylistFollowerCount, getPlaylistImage, getPlaylistName } from './helper/helper'
+import UserModal from './components/modals/UserModal'
 import LoadingSpinner from './components/LoadingSpinner'
+import ImageFightComponent from './components/ImageFightComponent'
 
 const determineWinner = async (playlist1, playlist2, user1Name, user2Name) => {
   let user1Score = 0;
@@ -26,8 +27,6 @@ const determineWinner = async (playlist1, playlist2, user1Name, user2Name) => {
   // ROUND 1: TRACK CALCULATION
   await determineRoundWinner(await getNumberOfTracks(playlist1), await getNumberOfTracks(playlist2))
 
-  console.log(`ROUND 1. User 1: ${user1Score}.  User 2: ${user2Score}`)
-
   // ROUND 2: IMAGE CALCULATION
   let playlist1Image = await getPlaylistImage(playlist1)
   let playlist2Image = await getPlaylistImage(playlist2)
@@ -47,8 +46,6 @@ const determineWinner = async (playlist1, playlist2, user1Name, user2Name) => {
     await determineRoundWinner(image1PixelCount, image2PixelCount)
   }
 
-  console.log(`ROUND 2. User 1: ${user1Score}.  User 2: ${user2Score}`)
-
   // ROUND 3: DESCRIPTION CALCULATION
   const playlist1Description = await getPlaylistDescription(playlist1)
   const playlist2Description = await getPlaylistDescription(playlist2)
@@ -65,18 +62,12 @@ const determineWinner = async (playlist1, playlist2, user1Name, user2Name) => {
     roundWinnersArr.push("Tied Round")
   }
 
-  console.log(`ROUND 3. User 1: ${user1Score}.  User 2: ${user2Score}`)
-
   // ROUND 4: FOLLOWERS CALCULATION
   await determineRoundWinner(await getPlaylistFollowerCount(playlist1), await getPlaylistFollowerCount(playlist2))
 
-  console.log(`ROUND 4. User 1: ${user1Score}.  User 2: ${user2Score}`)
 
   // ROUND 5: PLAYLIST NAME
   await determineRoundWinner(await getPlaylistName(playlist1), await getPlaylistName(playlist2))
-
-  console.log("User 1 score: " + user1Score)
-  console.log("User 2 score: " + user2Score)
 
   let winningUser = user1Score > user2Score ? "User 1" : user1Score < user2Score ? "User 2" : "Draw";
   let winnerObj = {
@@ -97,6 +88,7 @@ function App() {
   const [user2Name, setUser2Name] = useState('');
   const [roundWinners, setRoundWinners] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleInputChangeS1 = (event) => {
     setSpotifyLink1(event.target.value);
@@ -106,12 +98,19 @@ function App() {
   };
 
   const handleButtonClick = async () => {
+    setIsError(false)
     setLoading(true)
     let spotifyPlaylist1 = await getPlaylistDetailsFromAPI(spotifyLink1)
     setSpotifyPlaylist1Details(spotifyPlaylist1)
 
     let spotifyPlaylist2 = await getPlaylistDetailsFromAPI(spotifyLink2)
     setSpotifyPlaylist2Details(spotifyPlaylist2)
+
+
+    if (await didAPIReturnError(spotifyPlaylist1) || await didAPIReturnError(spotifyPlaylist2)) {
+      setIsError(true);
+      return;
+    }
 
     let winnerObj = await determineWinner(spotifyPlaylist1, spotifyPlaylist2, user1Name, user2Name)
     let winnerByUserID = winnerObj.winningUser;
@@ -140,11 +139,11 @@ function App() {
           <div className='link-input-area'>
             <div className='link-input-container'>
               <label className='username-label'>{user1Name}:</label>
-              <input type="text" placeholder="Enter spotify link" className='spotify-input-link' onChange={handleInputChangeS1}></input>
+              <input type="text" placeholder="Enter spotify playlist link" className='spotify-input-link' onChange={handleInputChangeS1}></input>
             </div>
             <div className='link-input-container'>
               <label className='username-label'>{user2Name}:</label>
-              <input type="text" placeholder="Enter spotify link" className='spotify-input-link' onChange={handleInputChangeS2}></input>
+              <input type="text" placeholder="Enter spotify playlist link" className='spotify-input-link' onChange={handleInputChangeS2}></input>
             </div>
           </div>
           <button onClick={handleButtonClick} className="button-50">
@@ -153,28 +152,35 @@ function App() {
         </div>
       }
       {
-        loading && <LoadingSpinner />
+        loading && !isError && <LoadingSpinner />
+      }
+      {
+        isError &&
+        <div className='error-message-api'>
+          <p>Something went wrong! ❤️</p>
+          <p>Double check the URLs are correct</p>
+        </div>
       }
       {spotifyPlaylist1Details && spotifyPlaylist2Details && !loading &&
         <>
-          <div>
+          <div className='full-results-container'>
+            <ImageFightComponent image1={spotifyPlaylist1Details.images != null ? spotifyPlaylist1Details.images[0].url : null}
+              image2={spotifyPlaylist2Details.images != null ? spotifyPlaylist2Details.images[0].url : null}
+              name1={spotifyPlaylist1Details.name} name2={spotifyPlaylist2Details.name} />
             <h3 className='winner-header'>
               Winner: {winner}
             </h3>
-            <h4>
-              Results by round
-            </h4>
             {
               roundWinners.map((rw, index) =>
-                <p key={index}>
-                  Round {index + 1}: {rw}
-                </p>
+                <div key={index} className='round-results-container'>
+                  <p className='fadeInText' style={{ animationDelay: `${index * 0.5}s` }}>
+                    Round {index + 1}: {rw}
+                  </p>
+                </div>
+
               )
             }
           </div>
-          {/* <div className='share-results-twitter-container'> */}
-          {/* TODO */}
-          {/* </div> */}
         </>
       }
     </>

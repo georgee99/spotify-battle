@@ -1,6 +1,6 @@
 #root {
   max-width: 100%;
-  min-height: 120vh;
+  min-height: 130vh;
   height: 100%;
   margin: 0 auto;
   text-align: center;
@@ -38,6 +38,7 @@ a:hover {
 
 body {
   margin: 0;
+  height: 100%;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -177,12 +178,92 @@ button:focus-visible {
   color: black;
 }
 
+.full-results-container {
+  padding: 2rem 0;
+}
+
 .winner-header {
   margin: 2rem 0;
 }
 
 .spinner-customisation {
-  margin: 2rem auto;
+  margin: 4rem auto;
   width: 10rem;
   height: 10rem;
+}
+
+.round-results-container > p {
+  font-size: 1.5rem;
+}
+
+.image-fight {
+  margin: 3rem auto;
+  display: flex;
+  justify-content: center;
+}
+
+.playlist-fight-image {
+  height: 12rem;
+  width: auto;
+  border-radius: 10px;
+  will-change: filter;
+  transition: filter 0.3s;
+}
+
+.playlist-fight-image:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.playlist-fight-name {
+  font-size: 1.5rem;
+  margin: 1rem auto;
+}
+
+.image-fight > p {
+  margin: auto 5rem;
+}
+
+@media (max-width: 768px) {
+  .playlist-fight-image {
+    height: 4rem;
+    width: auto;
+  }
+
+  .playlist-fight-name {
+    font-size: 1.5rem;
+    margin: 0 auto;
+  }
+
+  .link-input-area {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .image-fight {
+    display: none;
+  }
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeInText {
+  opacity: 0;
+  animation: fadeInFromTop 1s ease-out forwards;
+  animation-delay: 3s;
+}
+
+.error-message-api {
+  font-size: 1.3rem;
+  margin: 1rem auto;
 }

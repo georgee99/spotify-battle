@@ -1,17 +1,17 @@
-import { aboutData } from "../data/data"
+import { aboutData } from "../../data/data"
 
 function AboutModal() {
     return (
         <>
-            <a type="button" className="about-modal-button" data-toggle="modal" data-target="#exampleModal">
+            <a type="button" className="about-modal-button" data-toggle="modal" data-target="#aboutModal">
                 About
             </a>
 
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="aboutModal" tabIndex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">How it works</h5>
+                            <h5 className="modal-title" id="aboutModalLabel">How it works</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
