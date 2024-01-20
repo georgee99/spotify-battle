@@ -67,7 +67,9 @@ const determineWinner = async (playlist1, playlist2, user1Name, user2Name) => {
 
 
   // ROUND 5: PLAYLIST NAME
-  await determineRoundWinner(await getPlaylistName(playlist1).length, await getPlaylistName(playlist2).length)
+  const p1Name = await getPlaylistName(playlist1)
+  const p2Name = await getPlaylistName(playlist2)
+  await determineRoundWinner(p1Name.length, p2Name.length)
 
   let winningUser = user1Score > user2Score ? "User 1" : user1Score < user2Score ? "User 2" : "Draw";
   let winnerObj = {
