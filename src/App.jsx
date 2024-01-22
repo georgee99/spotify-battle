@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import spotifyBattleLogo from './assets/spotify-battle-logo.jpeg'
+import spotifyBattleLogo from './assets/battle-logo.png'
 import './App.css'
 import Navbar from './components/Navbar'
 import { determineImagePixelCount, didAPIReturnError, getNumberOfTracks, getPlaylistDescription, getPlaylistDetailsFromAPI, getPlaylistFollowerCount, getPlaylistImage, getPlaylistName } from './helper/helper'
