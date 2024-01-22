@@ -101,7 +101,8 @@ button:focus-visible {
   align-items: flex-end;
 }
 
-.navbar a {
+.navbar a,
+.modal-link {
   color: rgba(255, 255, 255, 0.87);
   padding: 14px 16px;
   text-decoration: none;
@@ -224,14 +225,18 @@ button:focus-visible {
 }
 
 @media (max-width: 768px) {
-  .playlist-fight-image {
-    height: 4rem;
-    width: auto;
-  }
-
   .playlist-fight-name {
     font-size: 1.5rem;
     margin: 0 auto;
+  }
+
+  .image-fight {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-fight > p {
+    margin: 3rem 0;
   }
 
   .link-input-area {
@@ -243,6 +248,17 @@ button:focus-visible {
 @media (max-width: 400px) {
   .image-fight {
     display: none;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .navbar a,
+  .modal-link {
+    padding: 10px;
   }
 }
 
