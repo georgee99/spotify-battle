@@ -133,8 +133,8 @@ function App() {
           <h1 className='landing-page-title'>Spotify Battle</h1>
           <img src={spotifyBattleLogo} className='logo spotify-battle'></img>
         </div>
+        <UserModal setUser1Name={setUser1Name} setUser2Name={setUser2Name} />
       </div>
-      <UserModal setUser1Name={setUser1Name} setUser2Name={setUser2Name} />
       {
         user1Name && user2Name &&
         <div>
@@ -175,7 +175,7 @@ function App() {
             {
               roundWinners.map((rw, index) =>
                 <div key={index} className='round-results-container'>
-                  <p className='fadeInText' style={{ animationDelay: `${index * 0.5}s` }}>
+                  <p className='fadeInText' style={{ animationDelay: `${index * 0.75}s` }}>
                     Round {index + 1}: {rw}
                   </p>
                 </div>

@@ -185,6 +185,7 @@ button:focus-visible {
 
 .winner-header {
   margin: 2rem 0;
+  font-size: 2.2rem;
 }
 
 .spinner-customisation {
@@ -247,7 +248,16 @@ button:focus-visible {
 
 @media (max-width: 400px) {
   .image-fight {
-    display: none;
+    margin: 1rem auto;
+  }
+
+  .playlist-fight-image {
+    height: 8rem;
+    width: auto;
+  }
+
+  .image-fight > p {
+    margin: 1rem 0;
   }
 
   .navbar {
@@ -259,6 +269,9 @@ button:focus-visible {
   .navbar a,
   .modal-link {
     padding: 10px;
+  }
+  .playlist-fight-name {
+    margin-top: 10px;
   }
 }
 
